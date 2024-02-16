@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -19,15 +20,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.moviescourseapp.models.MovieModel
 
 @Composable
-fun MovieCard(){
+fun MovieCard(
+    movieModel: MovieModel,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit
+) {
     Card(
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize()){
-            AsyncImage(model = ""
-                , contentDescription = "Movie Image",
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            AsyncImage(
+                model = movieModel.imageUrl, contentDescription = "Movie Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -35,14 +42,15 @@ fun MovieCard(){
             )
 
             Icon(
-                imageVector = Icons.Filled.Favorite,
+                imageVector = if (isFavorite) Icons.Filled.Favorite
+                else Icons.Outlined.FavoriteBorder,
                 contentDescription = "Favorite icon",
                 modifier = Modifier
                     .size(50.dp)
                     .padding(8.dp)
                     .align(Alignment.TopEnd)
                     .clickable {
-
+                        onFavoriteClick()
                     }
             )
         }
@@ -51,6 +59,10 @@ fun MovieCard(){
 
 @Composable
 @Preview(showBackground = true)
-fun MovieCardPreview(){
-    MovieCard()
+fun MovieCardPreview() {
+    MovieCard(
+        movieModel = mockMovieList.first(),
+        isFavorite = false,
+        onFavoriteClick = {}
+    )
 }
