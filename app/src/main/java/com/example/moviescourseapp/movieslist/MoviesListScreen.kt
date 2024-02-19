@@ -1,13 +1,19 @@
 package com.example.moviescourseapp.movieslist
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.moviescourseapp.models.MovieModel
 
 
@@ -27,7 +33,7 @@ val mockMovieList = listOf<MovieModel>(
     MovieModel(
         2,
         "Aquaman",
-        "https://sm.ign.com/t/ign_latam/feature/a/aquaman-an/aquaman-and-the-lost-kingdom-ending-explained_8b5y.1200.jpg",
+        "https://static.cinepolis.com/resources/mx/movies/posters/414x603/44086-316627-20231219074437.jpg",
         false
     ),
     MovieModel(
@@ -40,20 +46,33 @@ val mockMovieList = listOf<MovieModel>(
 
 @Composable
 fun MoviesListScreen() {
-    LazyColumn {
-        items(mockMovieList) { movie ->
-            var isFavorite by rememberSaveable {
-                mutableStateOf(false)
-            }
-            MovieCard(
-                movieModel = movie,
-                isFavorite = isFavorite,
-                onFavoriteClick = {
-                    isFavorite = !isFavorite
+
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
+        verticalItemSpacing = 4.dp,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        content = {
+            items(mockMovieList) { movie ->
+                var isFavorite by rememberSaveable {
+                    mutableStateOf(false)
                 }
+                MovieCard(
+                    movieModel = movie,
+                    isFavorite = isFavorite,
+                    onFavoriteClick = {
+                        isFavorite = !isFavorite
+                    }
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                horizontal = 2.dp,
+                vertical = 4.dp
             )
-        }
-    }
+    )
+
 }
 
 @Composable
