@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.moviescourseapp.data.mockMovieList
 import com.example.moviescourseapp.models.MovieModel
 
 @Composable

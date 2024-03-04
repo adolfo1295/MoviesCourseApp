@@ -20,7 +20,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun MoviesListScreen(
-    viewModel: MoviesListViewModel = viewModel()
+    viewModel: MoviesListViewModel = viewModel(
+        factory = MoviesListViewModel.Factory
+    )
 ) {
 
     val movieUiState by viewModel.moviesListUiState.collectAsState()
