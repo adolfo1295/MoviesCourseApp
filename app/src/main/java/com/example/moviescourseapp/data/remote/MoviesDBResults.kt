@@ -4,10 +4,10 @@ import com.squareup.moshi.Json
 
 data class MoviesResultResponse(
     @Json(name = "page") val page : Int,
-    @Json(name ="results") val result: List<MoviesDetailResponse>,
+    @Json(name ="results") val result: List<MovieDetailResponse>,
 )
 
-data class MoviesDetailResponse(
+data class MovieDetailResponse(
     @Json(name = "id") val id: Int,
     @Json(name = "title") val title: String,
     @Json(name = "vote_average") val voteAverage: Float,

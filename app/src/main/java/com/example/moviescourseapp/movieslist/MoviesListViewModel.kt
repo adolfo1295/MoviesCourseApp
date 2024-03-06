@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.moviescourseapp.data.MoviesRepository
+import com.example.moviescourseapp.data.remote.RetrofitClient
 import com.example.moviescourseapp.models.MovieModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,7 +52,9 @@ class MoviesListViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 MoviesListViewModel(
-                    MoviesRepository()
+                    MoviesRepository(
+                        RetrofitClient.service
+                    )
                 )
             }
         }
