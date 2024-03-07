@@ -56,6 +56,12 @@ fun MoviesListScreen(
             )
     )
 
+    if(movieUiState.showErrorMessage){
+        MovieError {
+            viewModel.getMovies()
+        }
+    }
+
 }
 
 @Composable
