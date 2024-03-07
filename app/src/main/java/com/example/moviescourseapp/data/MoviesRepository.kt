@@ -1,11 +1,15 @@
 package com.example.moviescourseapp.data
 
+import com.example.moviescourseapp.data.remote.MovieDbApi
 import com.example.moviescourseapp.models.MovieModel
+import com.example.moviescourseapp.models.toMoviesModelList
 
-class MoviesRepository {
+class MoviesRepository(
+    private val movieDbApi: MovieDbApi
+) {
 
     suspend fun getMovies(): List<MovieModel> {
-        return mockMovieList
+        return movieDbApi.getMovies().toMoviesModelList()
     }
 }
 
