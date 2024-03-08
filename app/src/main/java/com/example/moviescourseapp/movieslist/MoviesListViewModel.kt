@@ -1,5 +1,6 @@
 package com.example.moviescourseapp.movieslist
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -27,23 +28,33 @@ class MoviesListViewModel(
         getMovies()
     }
 
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
+            try {
+                _moviesListUiState.update {
+                    it.copy(
+                        isLoading = true,
+                        showErrorMessage = false
+                    )
+                }
 
-            _moviesListUiState.update {
-                it.copy(
-                    isLoading = true
-                )
-            }
+                delay(2000L)
 
-            delay(2000L)
-
-            val movies: List<MovieModel> = repository.getMovies()
-            _moviesListUiState.update { moviesUiState ->
-                moviesUiState.copy(
-                    moviesList = movies,
-                    isLoading = false
-                )
+                val movies: List<MovieModel> = repository.getMovies()
+                _moviesListUiState.update { moviesUiState ->
+                    moviesUiState.copy(
+                        moviesList = movies,
+                        isLoading = false,
+                        showErrorMessage = false
+                    )
+                }
+            } catch (e: Exception) {
+                _moviesListUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        showErrorMessage = true
+                    )
+                }
             }
         }
     }
@@ -59,7 +70,6 @@ class MoviesListViewModel(
             }
         }
     }
-
 }
 
 data class MoviesUiState(
