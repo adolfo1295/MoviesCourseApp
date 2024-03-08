@@ -56,8 +56,10 @@ fun MoviesListScreen(
             )
     )
 
-    if(movieUiState.showErrorMessage){
-        MovieError {
+    if(movieUiState.errorEnum != null){
+        MovieError(
+            errorMessage = movieUiState.errorEnum?.message.toString()
+        ) {
             viewModel.getMovies()
         }
     }

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MovieError(
-    errorMessage: String = "Ocurrio un error, veririca tu conexión a internet",
+    errorMessage: String,
     onRefreshClick: () -> Unit
 ){
     Column(
@@ -43,7 +43,9 @@ fun MovieError(
 @Composable
 @Preview(showBackground = true)
 fun MovieErrorPreview(){
-    MovieError {
+    MovieError(
+        errorMessage = "Ocurrio un error, veririca tu conexión a internet"
+    ) {
 
     }
 }
