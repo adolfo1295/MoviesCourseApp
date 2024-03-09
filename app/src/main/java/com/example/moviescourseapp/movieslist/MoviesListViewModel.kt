@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 
 
 class MoviesListViewModel(
@@ -34,7 +35,7 @@ class MoviesListViewModel(
                 _moviesListUiState.update {
                     it.copy(
                         isLoading = true,
-                        showErrorMessage = false
+                        errorEnum = null
                     )
                 }
 
@@ -45,14 +46,19 @@ class MoviesListViewModel(
                     moviesUiState.copy(
                         moviesList = movies,
                         isLoading = false,
-                        showErrorMessage = false
+                        errorEnum = null
                     )
                 }
             } catch (e: Exception) {
+                val errorEnum = when {
+                    e is ConnectException -> ErrorMessage.INTERNET_CONNECTION
+                    else -> ErrorMessage.DEFAULT
+                }
+
                 _moviesListUiState.update {
                     it.copy(
                         isLoading = false,
-                        showErrorMessage = true
+                        errorEnum = errorEnum
                     )
                 }
             }
@@ -75,5 +81,5 @@ class MoviesListViewModel(
 data class MoviesUiState(
     val moviesList: List<MovieModel> = emptyList(),
     val isLoading: Boolean = false,
-    val showErrorMessage: Boolean = false
+    val errorEnum: ErrorMessage? = null
 )
