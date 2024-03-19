@@ -1,4 +1,4 @@
-package com.example.moviescourseapp.movieslist
+package com.example.moviescourseapp.presentation.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

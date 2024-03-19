@@ -1,4 +1,4 @@
-package com.example.moviescourseapp.movieslist
+package com.example.moviescourseapp.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
