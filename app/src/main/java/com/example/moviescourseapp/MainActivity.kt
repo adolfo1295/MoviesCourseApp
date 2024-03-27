@@ -46,7 +46,10 @@ class MainActivity : ComponentActivity() {
 
         Scaffold(
           bottomBar = {
-            AnimatedVisibility(visible = currentDestination?.route != Routes.DetailsScreen ) {
+            AnimatedVisibility(
+              visible = currentDestination?.route
+                ?.contains(Routes.DetailsScreen) == false
+            ) {
               PrincipalNavigationBar(
                 navController = navController,
                 currentDestination = currentDestination
