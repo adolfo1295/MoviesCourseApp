@@ -7,8 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(
+  movieId: String?
+) {
   Box(modifier = Modifier.fillMaxSize()) {
-    Text(text = "Details")
+    Text(text = "Details $movieId")
   }
 }

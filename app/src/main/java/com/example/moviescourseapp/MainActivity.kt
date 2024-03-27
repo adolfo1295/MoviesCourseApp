@@ -3,6 +3,7 @@ package com.example.moviescourseapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -21,10 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.moviescourseapp.navigation.PrincipalScreenItem
 import com.example.moviescourseapp.navigation.Routes
 import com.example.moviescourseapp.presentation.detail.DetailsScreen
@@ -43,10 +46,12 @@ class MainActivity : ComponentActivity() {
 
         Scaffold(
           bottomBar = {
-            PrincipalNavigationBar(
-              navController = navController,
-              currentDestination = currentDestination
-            )
+            AnimatedVisibility(visible = currentDestination?.route != Routes.DetailsScreen ) {
+              PrincipalNavigationBar(
+                navController = navController,
+                currentDestination = currentDestination
+              )
+            }
           }
         ) { paddingValues ->
           NavHost(
@@ -57,7 +62,7 @@ class MainActivity : ComponentActivity() {
             composable(route = Routes.HomeScreen) {
               MoviesListScreen(
                 onMovieClick = { movieModel ->
-                  navController.navigate(Routes.DetailsScreen)
+                  navController.navigate(Routes.DetailsScreen + "/${movieModel.id}")
                 }
               )
             }
@@ -67,8 +72,16 @@ class MainActivity : ComponentActivity() {
             composable(route = Routes.NowPlayingScreen) {
 
             }
-            composable(route = Routes.DetailsScreen) {
-              DetailsScreen()
+            composable(
+              route = Routes.DetailsScreen + "/{movieId}",
+              arguments = listOf(navArgument(name = "movieId"){
+                type = NavType.StringType
+              })
+            ) {
+              val movieId = it.arguments?.getString("movieId")
+              DetailsScreen(
+                movieId = movieId
+              )
             }
           }
         }
