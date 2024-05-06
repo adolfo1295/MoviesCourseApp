@@ -1,12 +1,13 @@
 package com.example.moviescourseapp.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.moviescourseapp.data.MoviesFakeRepository
 import com.example.moviescourseapp.data.MoviesRepository
+import com.example.moviescourseapp.data.MoviesRepositoryImpl
 import com.example.moviescourseapp.data.remote.RetrofitClient
 import com.example.moviescourseapp.models.MovieModel
 import kotlinx.coroutines.delay
@@ -69,7 +70,7 @@ class MoviesListViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 MoviesListViewModel(
-                    MoviesRepository(
+                    MoviesRepositoryImpl(
                         RetrofitClient.service
                     )
                 )
