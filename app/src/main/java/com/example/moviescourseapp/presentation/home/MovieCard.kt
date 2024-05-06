@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.moviescourseapp.data.mockMovieList
 import com.example.moviescourseapp.models.MovieModel
 
 @Composable
@@ -69,7 +68,12 @@ fun MovieCard(
 @Preview(showBackground = true)
 fun MovieCardPreview() {
   MovieCard(
-    movieModel = mockMovieList.first(),
+    movieModel = MovieModel(
+      0,
+      "Buscando a Dory",
+      "https://play-lh.googleusercontent.com/eEL51k4AEWjVJ-0y-n6YmGvBj786KmGiRNraIhyUa7Zt8wAauACZ46uknVH6r_CpFJnd",
+      false
+    ),
     isFavorite = false,
     onFavoriteClick = {},
     onMovieClick = {}
