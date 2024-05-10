@@ -16,15 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviescourseapp.models.MovieModel
 
 @Composable
 fun MoviesListScreen(
     onMovieClick: (MovieModel) -> Unit,
-    viewModel: MoviesListViewModel = viewModel(
-        factory = MoviesListViewModel.Factory
-    )
+    viewModel: MoviesListViewModel = hiltViewModel()
 ) {
 
     val movieUiState by viewModel.moviesListUiState.collectAsState()

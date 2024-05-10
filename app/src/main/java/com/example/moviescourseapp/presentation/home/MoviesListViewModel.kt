@@ -1,15 +1,10 @@
 package com.example.moviescourseapp.presentation.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.moviescourseapp.data.MoviesFakeRepository
 import com.example.moviescourseapp.data.MoviesRepository
-import com.example.moviescourseapp.data.MoviesRepositoryImpl
-import com.example.moviescourseapp.data.remote.RetrofitClient
 import com.example.moviescourseapp.models.MovieModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,9 +12,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.net.ConnectException
+import javax.inject.Inject
 
 
-class MoviesListViewModel(
+@HiltViewModel
+class MoviesListViewModel @Inject constructor(
     private val repository: MoviesRepository
 ) : ViewModel() {
 
@@ -62,18 +59,6 @@ class MoviesListViewModel(
                         errorEnum = errorEnum
                     )
                 }
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                MoviesListViewModel(
-                    MoviesRepositoryImpl(
-                        RetrofitClient.service
-                    )
-                )
             }
         }
     }

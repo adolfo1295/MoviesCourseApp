@@ -3,8 +3,9 @@ package com.example.moviescourseapp.data
 import com.example.moviescourseapp.data.remote.MovieDbApi
 import com.example.moviescourseapp.models.MovieModel
 import com.example.moviescourseapp.models.toMoviesModelList
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(
+class MoviesRepositoryImpl @Inject constructor(
     private val movieDbApi: MovieDbApi
 ) : MoviesRepository {
 
