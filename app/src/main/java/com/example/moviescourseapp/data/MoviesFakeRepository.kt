@@ -1,8 +1,9 @@
 package com.example.moviescourseapp.data
 
 import com.example.moviescourseapp.models.MovieModel
+import javax.inject.Inject
 
-class MoviesFakeRepository : MoviesRepository {
+class MoviesFakeRepository @Inject constructor() : MoviesRepository {
     override suspend fun getMovies(): List<MovieModel> {
         return listOf(
             MovieModel(

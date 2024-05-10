@@ -33,8 +33,11 @@ import com.example.moviescourseapp.navigation.Routes
 import com.example.moviescourseapp.presentation.detail.DetailsScreen
 import com.example.moviescourseapp.presentation.home.MoviesListScreen
 import com.example.moviescourseapp.ui.theme.MoviesCourseAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
