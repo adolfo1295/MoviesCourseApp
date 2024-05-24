@@ -1,6 +1,7 @@
 package com.example.moviescourseapp.data
 
 import com.example.moviescourseapp.models.MovieModel
+import com.example.moviescourseapp.models.details.MovieDetailsModel
 import javax.inject.Inject
 
 class MoviesFakeRepository @Inject constructor() : MoviesRepository {
@@ -31,5 +32,9 @@ class MoviesFakeRepository @Inject constructor() : MoviesRepository {
                 false
             ),
         )
+    }
+
+    override suspend fun getMovieDetails(movieId: String): MovieDetailsModel {
+        TODO("Not yet implemented")
     }
 }
