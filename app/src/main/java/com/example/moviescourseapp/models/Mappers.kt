@@ -24,7 +24,7 @@ fun MovieDetailsResponse.toMovieDetailsModel(): MovieDetailsModel {
         posterPath = "$BASE_IMAGE_URL${this.posterPath}",
         overview = this.overview,
         releaseDate = this.releaseDate,
-        backdropPath = this.backdropPath,
+        backdropPath = "$BASE_IMAGE_URL${this.backdropPath}",
         genres = this.genres,
         popularity = this.popularity,
         tagline = this.tagline,
