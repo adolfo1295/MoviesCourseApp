@@ -29,6 +29,7 @@ fun MovieDetailsResponse.toMovieDetailsModel(): MovieDetailsModel {
         popularity = this.popularity,
         tagline = this.tagline,
         voteAverage = this.voteAverage,
-        video = this.video
+        video = this.video,
+        runtime = this.runtime
     )
 }

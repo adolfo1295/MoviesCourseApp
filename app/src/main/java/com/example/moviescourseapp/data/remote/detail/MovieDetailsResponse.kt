@@ -25,5 +25,7 @@ data class MovieDetailsResponse(
     @Json(name = "video")
     var video: Boolean,
     @Json(name = "vote_average")
-    var voteAverage: Double
+    var voteAverage: Double,
+    @Json(name = "runtime")
+    var runtime: Int
 )
