@@ -12,22 +12,23 @@ import com.example.moviescourseapp.models.details.MovieDetailsModel
 
 @Composable
 fun MovieDetailsContent(
-  movieDetailsModel: MovieDetailsModel
+    movieDetailsModel: MovieDetailsModel
 ) {
-  Scaffold(
-    topBar = {
-      MovieDetailsTopBar(movieDetailsModel = movieDetailsModel)
+    Scaffold(
+        topBar = {
+            MovieDetailsTopBar(movieDetailsModel = movieDetailsModel)
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            MovieDetailsHeader(
+                movieDetailsModel = movieDetailsModel,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(400.dp)
+            )
+            MovieDetailsBody(movieDetailsModel = movieDetailsModel)
+        }
     }
-  ) { paddingValues ->
-    Column(
-      modifier = Modifier.padding(paddingValues)
-    ) {
-      MovieDetailsHeader(
-        movieDetailsModel = movieDetailsModel,
-        modifier = Modifier
-          .fillMaxWidth()
-          .height(400.dp)
-      )
-    }
-  }
 }
