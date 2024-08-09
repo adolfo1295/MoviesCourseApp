@@ -1,7 +1,9 @@
 package com.example.moviescourseapp.data
 
+import com.example.moviescourseapp.data.local.FavoriteMovieEntity
 import com.example.moviescourseapp.models.MovieModel
 import com.example.moviescourseapp.models.details.MovieDetailsModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MoviesFakeRepository @Inject constructor() : MoviesRepository {
@@ -35,6 +37,18 @@ class MoviesFakeRepository @Inject constructor() : MoviesRepository {
     }
 
     override suspend fun getMovieDetails(movieId: String): MovieDetailsModel {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertMovie(movieEntity: FavoriteMovieEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteMovie(movieEntity: FavoriteMovieEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFavoriteMovies(): Flow<List<FavoriteMovieEntity>> {
         TODO("Not yet implemented")
     }
 }
