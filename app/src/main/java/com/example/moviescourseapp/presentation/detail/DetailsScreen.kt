@@ -16,32 +16,39 @@ import com.example.moviescourseapp.presentation.detail.components.MovieDetailsCo
 
 @Composable
 fun DetailsScreen(
-  movieId: String?,
-  viewModel: MovieDetailsViewModel = hiltViewModel()
+    movieId: String?,
+    viewModel: MovieDetailsViewModel = hiltViewModel(),
+    onBack: () -> Unit
 ) {
 
-  LaunchedEffect(movieId) {
-    viewModel.getMovieDetails(movieId.orEmpty())
-  }
-
-  val movieDetailsUiState by viewModel.movieDetailsUiState.collectAsState()
-
-  Box(modifier = Modifier.fillMaxSize()) {
-
-    LaunchedEffect(movieDetailsUiState.error) {
-      if (movieDetailsUiState.error != null) {
-        Log.d("adolfo", "DetailsScreen: ${movieDetailsUiState.error}")
-      }
+    LaunchedEffect(movieId) {
+        viewModel.getMovieDetails(movieId.orEmpty())
     }
 
-    if (movieDetailsUiState.isLoading) {
-      CircularProgressIndicator(
-        modifier = Modifier.align(Alignment.Center)
-      )
-    } else {
-      movieDetailsUiState.movieDetailsModel?.let {
-        MovieDetailsContent(movieDetailsModel = it)
-      }
+    val movieDetailsUiState by viewModel.movieDetailsUiState.collectAsState()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        LaunchedEffect(movieDetailsUiState.error) {
+            if (movieDetailsUiState.error != null) {
+                Log.d("adolfo", "DetailsScreen: ${movieDetailsUiState.error}")
+            }
+        }
+
+        if (movieDetailsUiState.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else {
+            movieDetailsUiState.movieDetailsModel?.let {
+                MovieDetailsContent(
+                    movieDetailsModel = it,
+                    onUpdateFavorites = { movieDetailsModel ->
+                        viewModel.updateFavorites(movieDetailsModel = movieDetailsModel)
+                    },
+                    onBack = onBack
+                )
+            }
+        }
     }
-  }
 }

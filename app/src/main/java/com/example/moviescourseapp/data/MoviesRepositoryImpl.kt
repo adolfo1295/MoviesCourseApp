@@ -35,4 +35,3 @@ class MoviesRepositoryImpl @Inject constructor(
         return movieDao.getFavoriteMovies()
     }
 }
-
