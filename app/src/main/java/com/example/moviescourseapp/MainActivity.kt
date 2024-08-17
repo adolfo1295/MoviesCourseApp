@@ -38,109 +38,112 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      MoviesCourseAppTheme {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MoviesCourseAppTheme {
 
-        val navController = rememberNavController()
-        val backStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = backStackEntry?.destination
+                val navController = rememberNavController()
+                val backStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = backStackEntry?.destination
 
-        Scaffold(
-          bottomBar = {
-            AnimatedVisibility(
-              visible = currentDestination?.route
-                ?.contains(Routes.DetailsScreen) == false
-            ) {
-              PrincipalNavigationBar(
-                navController = navController,
-                currentDestination = currentDestination
-              )
-            }
-          }
-        ) { paddingValues ->
-          NavHost(
-            modifier = Modifier.padding(paddingValues),
-            navController = navController,
-            startDestination = Routes.HomeScreen
-          ) {
-            composable(route = Routes.HomeScreen) {
-              MoviesListScreen(
-                onMovieClick = { movieModel ->
-                  navController.navigate(Routes.DetailsScreen + "/${movieModel.id}")
+                Scaffold(
+                    bottomBar = {
+                        AnimatedVisibility(
+                            visible = currentDestination?.route
+                                ?.contains(Routes.DetailsScreen) == false
+                        ) {
+                            PrincipalNavigationBar(
+                                navController = navController,
+                                currentDestination = currentDestination
+                            )
+                        }
+                    }
+                ) { paddingValues ->
+                    NavHost(
+                        modifier = Modifier.padding(paddingValues),
+                        navController = navController,
+                        startDestination = Routes.HomeScreen
+                    ) {
+                        composable(route = Routes.HomeScreen) {
+                            MoviesListScreen(
+                                onMovieClick = { movieModel ->
+                                    navController.navigate(Routes.DetailsScreen + "/${movieModel.id}")
+                                }
+                            )
+                        }
+                        composable(route = Routes.FavoritesScreen) {
+
+                        }
+                        composable(route = Routes.NowPlayingScreen) {
+
+                        }
+                        composable(
+                            route = Routes.DetailsScreen + "/{movieId}",
+                            arguments = listOf(navArgument(name = "movieId") {
+                                type = NavType.StringType
+                            })
+                        ) {
+                            val movieId = it.arguments?.getString("movieId")
+                            DetailsScreen(
+                                movieId = movieId,
+                                onBack = {
+                                    navController.navigateUp()
+                                }
+                            )
+                        }
+                    }
                 }
-              )
             }
-            composable(route = Routes.FavoritesScreen) {
-
-            }
-            composable(route = Routes.NowPlayingScreen) {
-
-            }
-            composable(
-              route = Routes.DetailsScreen + "/{movieId}",
-              arguments = listOf(navArgument(name = "movieId"){
-                type = NavType.StringType
-              })
-            ) {
-              val movieId = it.arguments?.getString("movieId")
-              DetailsScreen(
-                movieId = movieId
-              )
-            }
-          }
         }
-      }
     }
-  }
 }
 
 @Composable
 fun PrincipalNavigationBar(
-  navController: NavController,
-  currentDestination: NavDestination?
+    navController: NavController,
+    currentDestination: NavDestination?
 ) {
 
-  val principalScreens = listOf(
-    PrincipalScreenItem(
-      title = "Home",
-      route = Routes.HomeScreen,
-      selectedIcon = Icons.Filled.Home,
-      unselectedIcon = Icons.Outlined.Home
-    ),
-    PrincipalScreenItem(
-      title = "Favorites",
-      route = Routes.FavoritesScreen,
-      selectedIcon = Icons.Filled.Favorite,
-      unselectedIcon = Icons.Outlined.FavoriteBorder
-    ),
-    PrincipalScreenItem(
-      title = "Now Playing",
-      route = Routes.NowPlayingScreen,
-      selectedIcon = Icons.Filled.PlayArrow,
-      unselectedIcon = Icons.Outlined.PlayArrow
-    ),
-  )
+    val principalScreens = listOf(
+        PrincipalScreenItem(
+            title = "Home",
+            route = Routes.HomeScreen,
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home
+        ),
+        PrincipalScreenItem(
+            title = "Favorites",
+            route = Routes.FavoritesScreen,
+            selectedIcon = Icons.Filled.Favorite,
+            unselectedIcon = Icons.Outlined.FavoriteBorder
+        ),
+        PrincipalScreenItem(
+            title = "Now Playing",
+            route = Routes.NowPlayingScreen,
+            selectedIcon = Icons.Filled.PlayArrow,
+            unselectedIcon = Icons.Outlined.PlayArrow
+        ),
+    )
 
-  NavigationBar {
-    principalScreens.forEach { screen ->
-      NavigationBarItem(
-        label = {
-          Text(text = screen.title)
-        },
-        selected = currentDestination?.route == screen.route,
-        onClick = {
-          navController.navigate(screen.route) {
-            popUpTo(Routes.HomeScreen)
-          }
-        },
-        icon = {
-          Icon(
-            imageVector = if (currentDestination?.route == screen.route) screen.selectedIcon else screen.unselectedIcon,
-            contentDescription = screen.title
-          )
-        })
+    NavigationBar {
+        principalScreens.forEach { screen ->
+            NavigationBarItem(
+                label = {
+                    Text(text = screen.title)
+                },
+                selected = currentDestination?.route == screen.route,
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(Routes.HomeScreen)
+                    }
+                },
+                icon = {
+                    Icon(
+                        imageVector = if (currentDestination?.route == screen.route) screen.selectedIcon else screen.unselectedIcon,
+                        contentDescription = screen.title
+                    )
+                })
+        }
     }
-  }
 }
