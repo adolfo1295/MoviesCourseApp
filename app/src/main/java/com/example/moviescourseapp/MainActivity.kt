@@ -31,6 +31,7 @@ import androidx.navigation.navArgument
 import com.example.moviescourseapp.navigation.PrincipalScreenItem
 import com.example.moviescourseapp.navigation.Routes
 import com.example.moviescourseapp.presentation.detail.DetailsScreen
+import com.example.moviescourseapp.presentation.favorites.FavoriteMoviesScreen
 import com.example.moviescourseapp.presentation.home.MoviesListScreen
 import com.example.moviescourseapp.ui.theme.MoviesCourseAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,7 +74,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(route = Routes.FavoritesScreen) {
-
+                            FavoriteMoviesScreen(
+                                navigateToDetails = { movieModel ->
+                                    navController.navigate(Routes.DetailsScreen + "/${movieModel.id}")
+                                }
+                            )
                         }
                         composable(route = Routes.NowPlayingScreen) {
 
