@@ -41,10 +41,6 @@ fun MoviesListScreen(
                 }
                 MovieCard(
                     movieModel = movie,
-                    isFavorite = isFavorite,
-                    onFavoriteClick = {
-                        isFavorite = !isFavorite
-                    },
                     onMovieClick = {movieModel ->
                         onMovieClick(movieModel)
                     }
