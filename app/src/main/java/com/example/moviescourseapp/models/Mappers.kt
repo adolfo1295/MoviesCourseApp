@@ -41,3 +41,10 @@ fun FavoriteMovieEntity.transformToMovieModel(): MovieModel {
         imageUrl = this.posterPath
     )
 }
+
+fun MovieModel.transformToMovieEntity(): FavoriteMovieEntity {
+    return FavoriteMovieEntity(
+        movieId = this.id.toString(),
+        posterPath = this.imageUrl
+    )
+}

@@ -1,6 +1,7 @@
 package com.example.moviescourseapp.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -13,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,8 +29,11 @@ fun MoviesListScreen(
 
     val movieUiState by viewModel.moviesListUiState.collectAsState()
 
-    if (movieUiState.isLoading)
-        CircularProgressIndicator()
+    if (movieUiState.isLoading){
+        Box(modifier = Modifier.fillMaxSize()){
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    }
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
