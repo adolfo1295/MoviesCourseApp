@@ -10,7 +10,6 @@ import com.example.moviescourseapp.models.details.MovieDetailsModel
 fun MovieDetailsBody(
     movieDetailsModel: MovieDetailsModel
 ) {
-    
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
