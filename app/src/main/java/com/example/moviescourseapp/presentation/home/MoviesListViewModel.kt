@@ -28,6 +28,9 @@ class MoviesListViewModel @Inject constructor(
     }
 
     fun getMovies() {
+
+        if(moviesListUiState.value.isLoading) return
+
         viewModelScope.launch {
             try {
                 _moviesListUiState.update {
@@ -39,12 +42,13 @@ class MoviesListViewModel @Inject constructor(
 
                 delay(2000L)
 
-                val movies: List<MovieModel> = repository.getMovies()
+                val newMovies: List<MovieModel> = repository.getMovies(moviesListUiState.value.currentPage)
                 _moviesListUiState.update { moviesUiState ->
                     moviesUiState.copy(
-                        moviesList = movies,
+                        moviesList = moviesListUiState.value.moviesList + newMovies,
                         isLoading = false,
-                        errorEnum = null
+                        errorEnum = null,
+                        currentPage = moviesUiState.currentPage + 1,
                     )
                 }
             } catch (e: Exception) {
@@ -67,5 +71,6 @@ class MoviesListViewModel @Inject constructor(
 data class MoviesUiState(
     val moviesList: List<MovieModel> = emptyList(),
     val isLoading: Boolean = false,
-    val errorEnum: ErrorMessage? = null
+    val errorEnum: ErrorMessage? = null,
+    val currentPage: Int = 1,
 )

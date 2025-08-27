@@ -15,8 +15,10 @@ class MoviesRepositoryImpl @Inject constructor(
     private val movieDao: FavoriteMovieDao
 ) : MoviesRepository {
 
-    override suspend fun getMovies(): List<MovieModel> {
-        return movieDbApi.getMovies().transformToMoviesModelList()
+    override suspend fun getMovies(currentPage: Int): List<MovieModel> {
+        return movieDbApi.getMovies(
+            page = currentPage
+        ).transformToMoviesModelList()
     }
 
     override suspend fun getMovieDetails(movieId: String): MovieDetailsModel {
