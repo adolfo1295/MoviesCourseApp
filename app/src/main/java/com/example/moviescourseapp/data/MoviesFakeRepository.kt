@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MoviesFakeRepository @Inject constructor() : MoviesRepository {
-    override suspend fun getMovies(): List<MovieModel> {
+    override suspend fun getMovies(
+        currentPage: Int
+    ): List<MovieModel> {
         return listOf(
             MovieModel(
                 0,

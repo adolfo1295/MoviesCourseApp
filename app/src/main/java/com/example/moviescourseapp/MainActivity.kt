@@ -140,7 +140,11 @@ fun PrincipalNavigationBar(
                 selected = currentDestination?.route == screen.route,
                 onClick = {
                     navController.navigate(screen.route) {
-                        popUpTo(Routes.HomeScreen)
+                        popUpTo(Routes.HomeScreen) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
                     }
                 },
                 icon = {

@@ -6,7 +6,7 @@ import com.example.moviescourseapp.models.details.MovieDetailsModel
 import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
-    suspend fun getMovies(): List<MovieModel>
+    suspend fun getMovies(currentPage: Int): List<MovieModel>
     suspend fun getMovieDetails(movieId: String): MovieDetailsModel
     suspend fun insertMovie(movieEntity: FavoriteMovieEntity)
     suspend fun deleteMovie(movieEntity: FavoriteMovieEntity)
